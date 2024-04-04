@@ -12,10 +12,11 @@ from langchain.llms import HuggingFaceHub
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import EmbeddingsFilter
 from langchain_experimental.text_splitter import SemanticChunker
+import os
 #import docx2txt
 #from langgraph.graph import StateGraph,END
 
-
+HF_TOKEN = os.environ['HUGGINGFACEHUB_API_TOKEN']
 
 def classify(question):
     greeting_type = ''
@@ -99,7 +100,7 @@ def get_semantic_chunks(text):
     return chunks
 
 def get_vectorstore(text_chunks):
-    embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl")
+    embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl",huggingfacehub_api_token=HF_TOKEN)
     vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
     print("embeddings created")
     return vectorstore
@@ -192,6 +193,7 @@ def main():
     #if st.session_state.pdf_docs is None:
     #    st.write("Please upload a document in the side bar and start asking questions")
     #else:
-    handle_userinput(user_question)
+    if st.session_state.pdf_docs is not None:
+        handle_userinput(user_question)
 if __name__ == '__main__':
 	main()
