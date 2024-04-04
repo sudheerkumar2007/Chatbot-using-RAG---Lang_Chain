@@ -16,7 +16,7 @@ import os
 #import docx2txt
 #from langgraph.graph import StateGraph,END
 
-HF_TOKEN = os.environ['HUGGINGFACEHUB_API_TOKEN']
+#HF_TOKEN = os.environ['HUGGINGFACEHUB_API_TOKEN']
 
 def classify(question):
     greeting_type = ''
@@ -100,7 +100,7 @@ def get_semantic_chunks(text):
     return chunks
 
 def get_vectorstore(text_chunks):
-    embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl",huggingfacehub_api_token=HF_TOKEN)
+    embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl")
     vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
     print("embeddings created")
     return vectorstore
