@@ -5,6 +5,7 @@ python-dotenv
 faiss-cpu
 altair
 tiktoken
+streamlit
 # uncomment to use huggingface llms
 huggingface-hub
 # uncomment to use instructor embeddings
