@@ -11,7 +11,7 @@ from langchain.llms import HuggingFaceHub
 #from langchain.retrievers.multi_query import MultiQueryRetriever
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import EmbeddingsFilter
-from langchain_experimental.text_splitter import SemanticChunker
+#from langchain_experimental.text_splitter import SemanticChunker
 #import docx2txt
 #from langgraph.graph import StateGraph,END
 
