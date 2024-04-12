@@ -11,17 +11,16 @@ from langchain.llms import HuggingFaceHub
 #from langchain.retrievers.multi_query import MultiQueryRetriever
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import EmbeddingsFilter
-#from langchain_experimental.text_splitter import SemanticChunker
-import os
+from langchain_experimental.text_splitter import SemanticChunker
 #import docx2txt
 #from langgraph.graph import StateGraph,END
 
-#HF_TOKEN = os.environ['HUGGINGFACEHUB_API_TOKEN']
+
 
 def classify(question):
     greeting_type = ''
     if question:
-        llm = HuggingFaceHub(repo_id="google/flan-t5-xxl", model_kwargs={"temperature":0.5, "max_length":512})
+        llm = HuggingFaceHub(repo_id="google/flan-t5-large", model_kwargs={"temperature":0.5, "max_length":512})
         q_class = llm("classify intent of given input as greeting or not_greeting. Output just the class.Input:{}".format(question)).strip()
         if q_class == 'greeting':
             greeting_type = greeting_classify(question)
@@ -85,7 +84,7 @@ def read_text_from_document(docs):
 def get_text_chunks(text):
     text_splitter = CharacterTextSplitter(
         separator="\n",
-        chunk_size=1000,
+        chunk_size=900,
         chunk_overlap=50,
         length_function=len
     )
@@ -106,7 +105,7 @@ def get_vectorstore(text_chunks):
     return vectorstore
 
 def get_conversation_chain(vectorstore):
-    llm = HuggingFaceHub(repo_id="google/flan-t5-xxl", model_kwargs={"temperature":0.5, "max_length":512}) # starmpcc/Asclepius-Llama2-7B
+    llm = HuggingFaceHub(repo_id="google/flan-t5-large", model_kwargs={"temperature":0.5, "max_length":512}) # starmpcc/Asclepius-Llama2-7B google/flan-t5-xxl
     #retriever = MultiQueryRetriever.from_llm(retriever=vectorstore.as_retriever(), llm=llm)
     retriever=vectorstore.as_retriever()
     embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl")
@@ -193,7 +192,7 @@ def main():
     #if st.session_state.pdf_docs is None:
     #    st.write("Please upload a document in the side bar and start asking questions")
     #else:
-    if st.session_state.pdf_docs is not None:
-        handle_userinput(user_question)
+    #if st.session_state.pdf_docs is not None:
+    handle_userinput(user_question)
 if __name__ == '__main__':
 	main()
