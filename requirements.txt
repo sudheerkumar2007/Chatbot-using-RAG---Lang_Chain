@@ -12,6 +12,6 @@ huggingface-hub==0.20.3
 # uncomment to use instructor embeddings
 InstructorEmbedding==1.0.1
 sentence-transformers==2.2.2
-langchain-experimental==0.0.57
+#langchain-experimental==0.0.57
 #langChain_community
 #langchain-core
